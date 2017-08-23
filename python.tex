@@ -1,0 +1,1801 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IEEEsample2e.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% changes for IEEEtrans.cls marked with !PN
+%% except all occ. of IEEEtran.sty changed IEEEtran.cls
+%%%%%%%%%%                                                       %%%%%%%%%%%%%
+%%%%%%%%%%    More information: see the header of IEEEtran.cls   %%%%%%%%%%%%%
+%%%%%%%%%%                                                       %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[onecolumn]{IEEEtran} %!PN
+%\documentclass[12pt,draft]{IEEEtran} %!PN
+%\documentclass[11pt,draft]{IEEEtran} %!PN
+%\documentstyle[twocolumn]{IEEEtran}
+%\documentstyle[12pt,twoside,draft]{IEEEtran}
+%\documentstyle[9pt,twocolumn,technote,twoside]{IEEEtran}
+
+\input{epsf}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{bm}
+\usepackage{longtable}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{youngtab}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usepackage{verbatim}
+\usepackage{etoolbox}
+
+%---------------%
+%  comment out  %
+\topmargin -10mm  %
+\headsep 10mm   %
+%---------------%
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\setcounter{page}{1}
+\footnoterule \footnotesep 10mm
+
+\begin{document}
+
+\title{Python \& its Modules}
+\maketitle
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+
+\tableofcontents
+
+\section{Basics}
+\subsection{Environments}
+\begin{itemize}
+    \item Python usage: in \& out
+    \bi
+        \item type \verb|python| from a terminal to launch python in interactive mode
+        \item type \verb|python fn.py| from Linux prompt to execute python file \verb|fn.py|
+        \item type \verb|execfile('fn.py')| from Python prompt to execute python file \verb|fn.py|
+        \item quit Python by typing \verb|quit()| or \verb|exit()|
+        \item \verb|exit()| also exits a code or function
+    \ei
+    \item Python versions:
+    \bi
+        \item there are two major versions of Python, 2.x \& 3.x
+        \item type \verb|python --version|
+    \ei
+    \item git:
+    \bi
+        \item \emph{git} is a version control system
+        \bi
+            \item to download materials from git type \newline \verb|git clone web_address|
+        \ei
+    \ei 
+    \item GitHub:
+    \bi 
+        \item \emph{GitHub} is a code hosting platform for version control and collaboration
+        \bi 
+            \item it lets you and others work together on projects from anywhere
+        \ei 
+        \item a \emph{repository} is usually used to organize a single project
+        \bi 
+            \item repositories can contain folders and files, images, videos, spreadsheets, and data sets – anything your project needs 
+            \item it is recommended to include a README, or a file with information about your project 
+            \item to create a repository click on green icon \emph{New repository}
+            \item saved changes are called \emph{commits}
+            \item to delete a repository go to repository, then click on \emph{settings} and then go to the bottom of settings page
+        \ei 
+        \item the repository can have multiple \emph{branches} of the repository: the \emph{master branch} as well as alternative branches
+        \item Pull requests:
+        \bi 
+             \item a \emph{pull request}, requests others to review and pull in your contribution and merge them into their branch
+             \item pull requests show diffs, or differences, of the content from both branches
+             \item the changes, additions, and subtractions are shown in green and red
+        \ei 
+    \ei
+    \item PyCharm
+    \bi
+        \item \emph{PyCharm} is an Integrated Development Environment (IDE) used for programming in Python
+        \item \url{https://www.jetbrains.com/pycharm/}
+        \item to add a directory to the project \newline
+            \verb!File|Settings|Project|Project Structure!
+    \ei
+\end{itemize}
+
+\subsubsection{Anaconda}
+\begin{itemize}
+    \item General:
+    \bi
+        \item \url{https://www.continuum.io/why-anaconda}
+        \item \emph{Anaconda} is an open source distribution of the Python and R programming languages for large-scale data processing, predictive analytics, and scientific computing
+        \item Anaconda aims to simplify management of packages and environments
+        \bi
+            \item creation of virtual environments make it easy to work on multiple projects
+        \ei
+        \item Anaconda is a distribution of software that comes with \emph{conda} (see below), Python, and over $150$ scientific packages and their dependencies
+        \bi
+            \item both Python versions are included in Anaconda
+        \ei
+        \item I have used Anaconda as a Python compiler
+        \item \emph{Miniconda}, is a smaller distribution that includes only conda and Python
+        \bi
+            \item you can still install any of the available packages with conda
+        \ei
+    \ei
+    \item \verb|conda| as package manager:
+    \bi
+        \item conda is used exclusively from the command line
+        \item \verb|conda| is Anaconda's package manager application that installs, runs, and updates packages and their dependencies
+        \bi
+            \item conda installs pre-compiled packages
+        \ei
+        \item basic commands:
+        \bi
+             \item \verb|conda command_name --help| \newline explains \verb|command_name|
+             \item \verb|conda --version|
+             \item \verb|conda list| lists linked packages
+        \ei
+        \item key commands:
+        \bi
+            \item \verb|conda install package_name|
+            \item \verb|conda install -c conda-forge matplotlib=2.0.2|
+            \item \verb|conda remove -n package_name --all|
+            \item \verb|conda update package_name|
+            \item \verb|conda search search_term|
+        \ei
+        \item installing through \verb|https|  \newline
+        \verb|conda install --channel https://... x|
+        \item to remove \verb|conda| installation \newline \verb|rm -rf ~/anaconda|
+    \ei
+    \item \verb|conda| versus \verb|pip|
+    \bi
+        \item \verb|conda| is similar to \verb|pip| except that the available packages are focused around data science while \verb|pip| is for general use
+        \item \verb|conda| is not Python specific like \verb|pip| is, it can also install non-Python packages
+        \item can install packages with \verb|pip| if they not available from \verb|conda| or \verb|Anaconda.org|
+
+    \ei
+    \item Conda as virtual environment manager:
+    \bi
+        \item environments allow the separation and isolation of the used packages for different projects
+        \item \verb|conda create -n env_name packages|
+        \bi
+            \item \verb|-n| (or \verb|--name|), stands for \emph{name}
+            \item \verb|packages| are list of packages that need to be installed in the environment
+             \item it is recommended to install all programs in an environment at the same time
+        \ei
+        \item \verb|conda| and python:
+        \bi
+            \item \verb|conda| treats Python same as any other package
+            \item if Python version is not specified, \verb|conda| installs the same version that was used during installation of \verb|conda|
+            \item can specify python version as an argument \newline \verb|python=3|
+        \ei
+        \item to install in a specific environment type \newline \verb|conda install --name env_name pck_name|
+        \item to remove from a specific environment type \newline \verb|conda remove --name  env_name pck_name|
+        \item can check installed packages in an environment by typing either one of \newline
+        \verb|conda env list| \newline
+        \verb|conda info --envs|
+        \item save or share an environment by typing \newline
+        \verb|conda env export > environment.yaml|
+        \item to create an environment from an environment file use \newline
+        \verb|conda env create -f environment.yaml|
+        \item can remove environments use \newline
+        \verb|conda env remove -n env_name|
+        \item to cleanup downloaded libraries type
+        \newline \verb|conda clean -tp|
+    \ei
+    \item Conda activation:
+    \bi
+          \item activate an environment by typing \newline \verb|activate env_name| in Windows \newline  \verb|source activate env_name| in Linux
+          \item environments are installed by default into the envs directory in your conda directory
+          \item to deactivate type \newline \verb|deactivate| in Windows \newline  \verb|source deactivate| in Linux
+          \bi
+            \item deactivation takes it back to root directory
+          \ei
+    \ei
+    \item Jupyter Notebook:
+    \bi
+        \item formerly \emph{iPython Notebook}
+        \item interactively write documents that include code, text, output and \emph{LateX}
+        \item to install from conda type \newline
+        \verb|conda install jupyter notebook|
+        \item To start a notebook server, enter \newline
+        \verb|jupyter notebook|
+    \ei
+\end{itemize}
+
+\subsection{Fundementals}
+\begin{itemize}
+    \item Some symbols
+    \bi
+        \item \verb|x / y| returns true division
+        \item \verb|x // y| returns  floor division
+        \item symbol \verb|x % y| returns the remainder
+        \item symbol \verb|**| is power
+        \item to comment out a line, start with symbol \verb|#|
+        \item to comment out a paragraph, enclose it between \verb|"""|
+    \ei
+    \item Data types \& Variables:
+    \bi
+        \item variables are not declared
+        \item variables can dynamically change type
+        \item basic built-in types are
+        \bi
+            \item \verb|bool|
+            \item \verb|int|
+            \item \verb|float|
+            \item \verb|long|
+            \item \verb|complex|
+            \item \verb|None|, used to represent the absence of a value
+                \newline \verb|x = None|
+        \ei
+    \ei
+    \item Data type commands:
+    \bi
+        \item \verb|type()| returns type of object
+        \bi
+            \item \verb|type(None)| is 'NoneType'
+        \ei
+        \item \verb|int()|  converts string to int
+        \item \verb|float()| converts string to float
+        \item \verb|str()| converts arguments to strings
+        \item \verb|isinstance(x, int)| checks if x is integer, can check for float, bool etc.
+    \ei
+    \item Boolean:
+    \bi
+        \item boolean variables are assigned to \verb|True| or \verb|False|
+        \item boolean operators for or \& and are \verb|or| \& \verb|and|
+        \item negation is \verb|not|
+        \item not equal to is \verb|!=|
+    \ei
+    \item \verb|print()|
+    \bi
+        \item \verb|print('a string')|=\verb|print("a string")|
+        \item \verb|print| inserts new-line, \verb|\n| at the end
+        \bi
+            \item if do not want new-line use option \verb|end = ''|
+        \ei
+         \item \verb|print('a = ', a)|
+        \item \verb|print("A has {} dogs".format(var))|
+        \item \verb|print("A = {:2.3f}".format(2.2))|
+        \item inside the \verb|{}|:
+        \bi
+            \item \verb|<| will left-align the text in a field,  e.g. \verb|{:<3}|
+            \item \verb|^| will center the text in the field
+            \item \verb|>| will right-align it
+        \ei
+    \ei
+    \item \verb|(text)|
+    \bi
+        \item if a text is too long to fit in a line use parenthesis
+    \ei
+    \item \verb|dir()|
+    \bi
+        \item without arguments, returns the list of names in the current local scope,
+        \item with an argument, or object, attempts to return a list of valid attributes for that object,
+        \newline \verb|dir(str)|
+    \ei
+    \item \verb|vars()|, \verb|locals()|, \verb|globals()|
+    \bi
+        \item \verb|globals()| returns the dictionary of the module namespace
+        \item \verb|locals()| returns a dictionary of the current namespace
+        \item \verb|vars()| returns either a dictionary of the current namespace (if called with no argument) or the dictionary of the argument
+    \ei
+    \item \verb|id()|
+    \bi
+        \item \verb|id(object)| returns the “identity” of an object
+        \item this is an integer (or long integer)
+        \item the identity is guaranteed to be unique and constant for this object during its lifetime
+    \ei
+    \item \verb|input("prompt")|
+    \bi
+        \item take input from keyboard as string
+        \item returns the keyboard string
+    \ei
+    \item \begin{verbatim}
+if expression1:
+    statement(s)
+elif expression2:
+    statement(s)
+else:
+    statement(s)
+    \end{verbatim}
+    \item Exception:
+    \bi
+        \item even if a statement or expression is syntactically correct, it may cause an error when an attempt is made to execute it
+        \item errors detected during execution are called \emph{exceptions} and are not unconditionally fatal
+        \item Python has built-in exceptions, in the \emph{Exception} class, but a code may need user-defined exceptions
+        \bi
+            \item exceptions should typically be derived from the Exception class, either directly or indirectly
+        \ei
+    \ei
+    \item \verb|try|, \verb|except|, \verb|raise| \& \verb|finally|
+    \bi
+        \item can defend your program from an exception, by placing the suspicious code in a \verb|try, except| block
+\begin{verbatim}
+try:
+    suspicious statement(s)
+except:
+    problem handling statement(s)
+\end{verbatim}
+        \item if no exception occurs, the \verb|except| clause is skipped and execution of the try statement is finished
+        \item if \verb|try| block gives exception, the \verb|except| clause handles the problem as elegantly as possible
+        \item the \verb|raise| statement forces an exception to occur
+        \item the argument to \verb|raise| indicates the exception to be raised
+        \bi
+            \item this must be either an exception instance or an exception class
+        \ei
+        \item for example \newline
+        \verb|raise ValueError| \newline implies the value of a parameter error
+        \item can also be more specific  \newline \verb|raise ValueError, ‘value not in dict’|
+        \item the \verb|try| statement has another optional clause, \verb|finally|, which is intended to define clean-up actions that must be executed under all circumstances
+        \bi
+            \item a \verb|finally| clause is always executed before leaving the \verb|try| statement, whether an exception has occurred or not
+        \ei
+\begin{verbatim}
+try:
+    raise KeyboardInterrupt
+finally:
+    print('Goodbye, world!')
+\end{verbatim}
+    \ei
+    \item Iterator:
+    \bi
+        \item an \emph{iterator} is an object representing a stream of data
+        \bi
+            \item an iterator is an object we can iterate over
+            \item see Section \ref{class_section} for more on classes
+        \ei
+        \item repeated calls to the iterator’s \verb|__next__()| method (or passing it to the built-in function \verb|next()|) return successive items in the stream
+        \item iterators are required to have an\verb| __iter__()| method that returns the iterator object itself
+        \bi
+            \item so every iterator is also iterable and may be used in most places where other iterables are accepted
+        \ei
+    \ei
+    \item Iterable:
+    \bi
+       \item an \emph{iterable} is an object capable of returning its members one at a time
+       \item e.g. lists, tuples, dictionaries, file objects
+       \item  iterables can be used in a for loop
+    \ei
+    \item \verb|for iterating_var in sequence:| \newline \verb|    statements(s)|
+    \bi
+        \item the \verb|for| statement assigns to \verb|iterating_var| all the elements of the \verb|sequence|,
+        \item examples:
+        \begin{verbatim}
+for _letter in _string:
+for _element in _list:
+for (i,j) in _list_of_2_tuples:
+for _key in _dict:
+        \end{verbatim}
+        \item if the index is needed as well, \verb|enumerate()| returns both index and member \newline
+            \verb|for i,x in enumerate(list)|
+    \ei
+    \item \verb|while expression:| \newline
+         \verb|   statement(s)|
+    \item \verb|open|
+    \bi
+        \item \verb|open('output.txt', mode='w')|
+        \item \verb|mode|
+        \bi
+            \item \verb|mode='b'| means binary
+            \item \verb|mode='r'| means read
+            \item \verb|mode='w'| means write
+        \ei
+    \ei
+    \item \verb|with|
+    \bi
+        \item used when two related operations which you'd like to execute as a pair, with a block of code in between
+        \item \verb|with open('output.txt', mode='w') as f:| \newline
+            \verb|    f.write('Hi there!')|
+        \item  \verb|with| statement will automatically close the file after the nested block of code
+    \ei
+    \item \verb|in|
+    \bi
+        \item \verb|in| is an operator that checks if $a \in A$
+        \item \verb|in| returns boolean outcome
+        \item examples:
+        \begin{verbatim}
+_letter in _string:
+_element in _list:
+_key in _dict:
+        \end{verbatim}
+    \ei
+    \item \verb|is|
+    \bi
+        \item \verb|is| is similar to \verb|==| but stronger
+        \item unlike \verb|==|, \verb|is| does not make any conversions
+        \begin{verbatim}
+if x is None
+        \end{verbatim}
+    \ei
+    \item \verb|__main__| \& \verb|global|
+    \bi
+        \item scripts are in \verb|__main__|,
+        \item variables in \verb|__main__| are \verb|global|,
+        \item to reassign a global variable in a function, need to declare the variable as \verb|global var|.
+    \ei
+    \item \verb|__name__|
+    \bi
+        \item before executing the code, Python defines a few special variables
+        \item \verb|__name__| is such a variable, that stores the name of source file
+        \item when Python interpreter is running a source file, as the main program, it sets the special \verb|__name__| variable to have a value \verb|__main__|
+        \item if the source file is being imported from another module, \verb|__name__| will be set to the module's name
+    \ei
+    \item User defined functions:
+    \bi
+        \item \verb|def fn(x):|
+        \item \verb|   y= x**2|
+        \item \verb|   return(y)|
+        \item the return value (if assigned one) of a void function is \verb|None|,
+        \item tuples (see subsection \ref{tuples_sec}), allow multiple returns from a function \newline \verb|return(x,y)|
+    \ei
+    \item \verb|lambda|
+    \bi
+        \item lambda function is of the form
+        \item \verb|g = lambda x: x**2|
+    \ei
+    \item Generator
+    \bi
+        \item a \emph{generator} is a function which returns a generator iterator
+        \bi
+            \item outside of Python, generators are referred to as \emph{coroutines}
+            \item generator functions create generator iterators
+            \item a generator is a special type of iterator
+            \item since a generator is a type of iterator, it can be used in a for loop
+        \ei
+        \item instead of \verb|return()| type \verb|yield|
+        \bi
+            \item \verb|return| implies returning control of execution
+            \item \verb|yield| implies the transfer of control is temporary and voluntary, where the generator expects to regain it in the future
+        \ei
+        \item the yielded value is the "generated" value
+        \item the next time \verb|next()| is called on the generator iterator, the generator resumes execution from where it called \verb|yield|, not from the beginning of the function
+        \bi
+            \item to get the next value from a generator, use the same built-in function as for iterators: \verb|next()|
+        \ei
+    \ei
+    \item Other Python keywords:
+    \bi
+        \item \verb|assert|
+        \bi
+            \item \verb|assert flag, 'text'|
+            \item if \verb|flag=False| then stops codes and prints \verb|text|
+        \ei
+        \item \verb|del|
+        \bi
+            \item \verb|del a| deletes variable \verb|a|
+        \ei
+        \item \verb|pass|
+        \bi
+            \item is a null operation
+            \item e.g function placeholder
+        \ei
+        \item \verb|break|	
+        \bi
+            \item  breaks out of the innermost enclosing \verb|for| or \verb|while| loop
+        \ei
+        \item \verb|continue|
+        \bi
+            \item continues with the next iteration of the loop
+        \ei
+    \ei
+\end{itemize}
+
+\newpage
+\section{Structures}
+\begin{itemize}
+  \item There are four native collections in Python:
+  \bi
+    \item \emph{lists}, \verb|list()|
+    \item \emph{dictionaries} \verb|dict()|, and
+    \item \emph{tuples} \verb|tuple()|
+    \item \emph{sets} \verb|set()|
+  \ei
+  \item Strings and tuples are \emph{immutable}, lists, sets and dictionaries are \emph{mutable}.
+  \item \verb|len()|
+    \bi
+        \item returns the number of items in a string, list, tuple, set or dictionary
+    \ei
+\end{itemize}
+
+
+\subsection{Strings}
+\begin{itemize}
+    \item Strings:
+    \bi
+        \item a string is a sequence of characters
+        \bi
+            \item both single quotes and double quotes can be used
+        \ei
+        \item the string type is denoted as \verb|str|
+        \item strings are \emph{immutable}
+        \bi
+             \item cannot change an existing string
+        \ei
+        \item compare two strings using  $==$, $>$ and $<$
+        \bi
+            \item ordering is through alphabetic order
+        \ei
+    \ei
+    \item Overloading:
+    \bi
+        \item \verb|+| operator concatenates strings
+        \item \verb|*| operator repeats a string a given number of times
+    \ei
+    \item Special characters:
+    \bi
+        \item \verb|\n| is new line
+    \ei
+    \item Slicing: syntax to access sublists, using symbol '\verb|:|'
+    \bi
+        \item index starts at zero
+    \ei
+    \begin{verbatim}
+a[a:b] #from a to (b-1)
+a[a:]  #from a to the end
+a[:b]  #from beginning to (b-1)
+a[:]   #a copy of the whole array
+a[-1]  #last item
+a[-2]  #second last item
+a[-2:] #last two items
+a[:-1] #all except the last item
+a[:-2] #all except the last two items
+    \end{verbatim}
+    \item Iterable:
+    \bi
+        \item the elements of a string are iterable
+        \newline \verb|for char in string:|
+        \newline \verb|    statement(s)|
+    \ei
+    \item Methods:
+    \bi
+        \item \verb|str.find(‘a’,_start,_before)|
+        \bi
+            \item returns position of the first occurrence of \verb|a|
+            \item search from position \verb|_start| to \verb|_before|
+            \item \verb|_start| \& \verb|_before| are optional
+            \item useful when parsing text
+        \ei
+        \item \verb|str.strip()|
+        \bi
+            \item returns string without  \verb|\r\n| control sequences, and without extra spacing at both ends
+            \item an optional argument string \verb|chars| specifies the set of characters to be removed
+        \ei
+        \item \verb|str.startswith()|
+        \bi
+            \item returns \verb|True| if string starts with the \verb|prefix|
+        \ei
+        \item \verb|str.split()| breaks a string into words,
+        \bi
+            \item more specifically, \verb|string.split(delimiter)| breaks the string into a list of words using a defined delimiter,
+        \ei
+        \item \verb|str.join()|
+        \bi
+            \item is the reverse of split,
+            \item given a delimiter \verb|s|,
+            \item given a sequence (list) of strings \verb|seq|
+            \item \verb|s.join(seq)| concatenates elements of \verb|seq| into a single string.
+        \ei
+    \ei
+    \item Capitalization:
+    \bi
+        \item \verb|str.upper()|
+        \bi
+            \item capitalizes all the letters
+        \ei
+        \item \verb|str.lower()|
+        \bi
+            \item lower-case all letters
+        \ei
+        \item \verb|str.isuppper()|
+        \bi
+            \item returns a boolean
+        \ei
+        \item \verb|word.capitalize()|
+        \bi
+            \item capitalizes the first letter
+        \ei
+    \ei
+    \item Formatting:
+    \bi
+        \item \verb|s = '%s %s %d' % ('hello','wo',2016)|
+    \ei
+\end{itemize}
+
+\subsection{Files}
+\begin{itemize}
+    \item Files are stored on secondary memory.
+    \item \verb|open|
+    \begin{verbatim}
+fin = open(‘fn.txt’) #fin=file handle
+fin = open(‘fn.txt’,'r') #same as above
+fout= open(‘fn.txt’,’w’’) # write
+    \end{verbatim}
+    \item File handle as a sequence: \newline
+    \bi
+        \item \verb|for line in file_handle|
+        \item each line in the file is a string in the sequence,
+        \item if using \verb|for| loop then no need to use explicit read functions.
+    \ei
+    \item Read from file:
+    \begin{verbatim}
+line = file_handle.readline()
+all  = file_handle.read()
+  \end{verbatim}
+  \item Write to file:
+  \begin{verbatim}
+fout.write('') #argument is string
+fout.write(str(42))
+fout.write('%d %s',42,'aa')
+  \end{verbatim}
+\end{itemize}
+
+\subsection{Lists}
+\begin{itemize}
+    \item lists:
+    \bi
+        \item a \emph{list} is is a sequence of values of any data type,
+        \bi
+            \item a linear collection of values that stay in order,
+            \item similar to ‘cell’ in Matlab,
+        \ei
+        \item e.g. \verb|A = [10, 'aa']|,
+        \bi
+            \item where \verb|A[0]=10|, \verb| A[1]='aa'|,
+        \ei
+        \item lists are mutable,
+        \item each item could be a list itself,
+        \item an empty list is [ ].
+    \ei
+    \item \verb|range(n)|
+    \bi
+        \item generates a list of \verb|n| elements, \newline
+        \verb|[0, 1, ... (n-1)]|
+        \item same as $[0:n-1]$ in Matlab,
+    \ei
+    \item \verb|xrange()|
+    \bi
+        \item similar to \verb|range()|, but returns an \verb|xrange| object instead of a list,
+        \item the advantage of the \verb|xrange| type is that an \verb|xrange| object will always take the same amount of memory, no matter the size of the range it represents.
+    \ei
+    \item Overloading \& slicing is similar to strings.
+    \item Iterator:
+    \bi
+        \item can traverse the elements in the list by doing \newline
+         \verb|for i in range(len(list_name)):|,
+        \item the  \verb|in| operator works on lists.
+    \ei
+    \item Methods:
+    \bi
+        \item \verb|l.append(‘f’)| adds the new element ‘f’ to the end of the list,
+        \item \verb|l.extend(m)| concatenates list \verb|m| to \verb|l|,
+        \bi
+            \item similar to \verb|l+m|,
+        \ei
+        \item \verb|l.sort()| alphabetically sorts elements,
+        \item \verb|b = l.pop(i)|, takes out the $i^\text{th}$ element from \verb|l|, and assigns it to \verb|b|,
+        \bi
+            \item in the absence of argument \verb|i|, \verb|pop()| removes last element,
+        \ei
+        \item \verb|a.remove(‘element’)| to remove a specific element, without referring to index,
+        \item \verb|del l[i]|, deletes the $i^\text{th}$ element,
+        \item \verb|del l[1:5]| removes a subset.
+    \ei
+    \item \verb|list()|
+    \bi
+        \item \verb|list()| creates an empty list,
+        \item \verb|list(_str)| converts a string to a list,
+        \bi
+            \item it splits a string to individual characters,
+        \ei
+        \item \verb|list(_dict)| converts a dictionary to a list,
+        \bi
+            \item it only converts the keys, and ignores the values.
+        \ei
+    \ei
+    \item Vector:
+    \bi
+        \item vectors are lists of numbers,
+        \item functions for lists with number elements include \verb|sum(l)|, \verb|min(l)|, and \verb|max(l)|.
+    \ei
+     \item Lists are comparable:
+    \bi
+        \item start with the first elements,
+        \item continue until find the elements that are different,
+        \item ignore the remaining elements \newline \verb|[1, 7] < [2, 5]| \newline \verb|[2, 1, 2] < [2, 2, 0]|
+    \ei
+    \item Two lists with same address:
+    \bi
+        \item consider two lists \verb|t1=t2=[a, b]|,
+        \item changing value of one \verb|t1[0]=c|, will also change \verb|t2|,
+        \item this is different from C and Matlab,
+        \item to check whether two lists refer to the same object use operator \verb|is|.
+    \ei
+    \item Shortcut to create a list:
+    \bi
+        \item \verb|[f(a) for a in A] #f(a) is a fn|
+        \item \emph{list comprehension} creates a dynamic list
+    \ei
+\end{itemize}
+
+\subsection{Dictionaries}
+\begin{itemize}
+    \item Dictionary:
+    \bi
+        \item a dictionary is a mapping between \emph{keys} and \emph{values}
+        \item a key, or label, is used to access a value
+        \item a dictionary is a "bag" of values, each with its own label
+        \bi
+            \item the order of items in a dictionary does not matter
+        \ei
+        \item keys can be of any type, not just integers
+        \item think of keys as a generalization to indices
+        \item dictionaries are mutable
+        \item dictionaries can be effectively used to count objects
+    \ei
+    \item Creating \& initalizing a dictionary:
+    \bi
+        \item two ways of creating an empty dictionary are \newline
+        \verb|X=dict()| \newline
+        \verb|X={}|
+        \item adds an item to the dictionary by typing \newline
+        \verb|X['one']='meg'|
+        \bi
+            \item \verb|X['one']| returns \verb|'meg'|
+        \ei
+        \item can combine creation and initialization \newline \verb|X = {'one': 'meg', 'two':'yergou'}|
+    \ei
+    \item From a loaded file \verb|reader|: \newline
+    \verb|X={row[0]:row[1] for row in reader}|
+    \item Search:
+    \bi
+        \item for dictionary value retrieval, hashing is used \newline \verb| for _key in _dict|
+        \bi
+            \item the iterator traverses the keys, rather than the values, of the dictionary,
+        \ei
+        \item as a result, search time is about the same no matter how long the dictionary is,
+        \item when compared to list, a search algorithm is used, which lead to proportionally increasing searching time with the list length.
+    \ei
+    \item methods:
+    \bi
+        \item \verb|X.get(_key,_default_val)|
+        \bi
+            \item returns the \emph{value} corresponding to \verb|_key| if it exists, otherwise returns \verb|_default_val|
+            \item motivation: note that if \verb|_key| does not exist, Py\-thon will complain about the command \verb|X[_key]|,
+        \ei
+        \item \verb|X.keys()|
+        \bi
+            \item returns a list of keys
+        \ei
+        \item \verb|X.values()|
+        \bi
+            \item returns a list of values
+            \item e.g., \verb|for _value in _dict.values()|
+        \ei
+        \item \verb|X.items()|
+        \bi
+            \item returns a list of tuples, where a tuple is a key/value pair
+            \item since \verb|X.items()| is a list, it is possible to sort by keys
+        \ei
+    \ei
+\end{itemize}
+
+\subsection{Sets\label{sets_sec}}
+\begin{itemize}
+    \item Set:
+    \bi
+        \item a set is an unordered collection of distinct elements,
+        \item \verb|animals = {'cat', 'dog'}|
+        \item \verb|animals.add('fish')|
+        \item \verb|animals.remove('fish')|
+        \item \verb|'fish' in animals| is True or False.
+    \ei
+\end{itemize}
+
+\subsection{Tuples\label{tuples_sec}}
+\begin{itemize}
+    \item Tuple:
+    \bi
+        \item a tuple is a comma separated list of values,
+        \bi
+            \item \verb|t = 2, 7, 'a', 14|
+            \item optionally enclosed in \verb|()|,
+            \item if a single element is created, then end it in a com\-ma to denote it as a tuple, \newline \verb|t=5,|
+            \item using tuples, Python allows two assignments in one \newline \verb|a,b = 1,2|
+        \ei
+        \item can create an empty tuple as \verb|t = tuple()|.
+    \ei
+    \item Tuples and lists:
+    \bi
+        \item tuples are similar to lists,
+        \bi
+            \item can iterate over tuples, just like lists,
+            \item can use functions like \verb|max()| \& \verb|min()|,
+            \item can compare using operators such as \verb|<|, \verb|>|, etc.
+        \ei
+        \item unlike lists, tuples are immutable,
+        \bi
+            \item can not use methods such as \verb|sort()|, \verb|append()| etc., that modify the tuple,
+            \item compared to lists, tuples have a reduction in methods,
+            \item still can replace one tuple with another \newline \verb|t=('A') + t[1:]|,
+            \item immutability makes tuples more efficient
+            \bi
+                \item quicker, less memory etc.,
+                \item an example is temporary variables.
+            \ei
+        \ei
+    \ei
+\end{itemize}
+
+
+\subsection{Classes\label{class_section}}
+\begin{itemize}
+    \item Class definition and instantiation:
+    \bi
+        \item definition \newline \verb|class class_name(object):| \newline \verb|   'optional doc string'| \newline
+            \verb|   self.a = 0| \newline
+            \verb|   def func(self):| \newline
+            \verb|      ...|
+        \item the class has an optional documentation string, which can be accessed as \newline \verb|class_name.__doc__|
+        \item instantiation \newline \verb|obj=class_name()|.
+    \ei
+    \item Attribute:
+    \bi
+        \item \verb|a| is an \emph{attribute} of \verb|class_name| and can be accessed as \verb|class_name.a|,
+        \bi
+            \item objects are mutable,
+            \item \verb|hasattr(object, name)| checks if an attribute exists or not,
+            \item \verb|getattr(object, name)| returns the attribute’s value
+            \item \verb|isinstance(object,class)| returns true if \verb|object| is an instance of class Class or is an instance of a subclass of Class.
+            \item \verb|del class_name.a| deletes attribute \verb|a|,
+            \item \verb|__dict__| is built-in class dictionary attribute that maps attribute names and values containing the class's namespace.
+        \ei
+    \ei
+    \item Method:
+    \bi
+        \item a \emph{method} is a function associated with a class, \newline
+            \verb|def function_name(self,optional_var):|
+        \item the object itself is regarded as the first parameter of the method
+        \item \verb|__init__|
+        \bi
+            \item \verb|__init__| is a special method that gets invoked when an object is instantiated
+            \bi
+                \item it is the constructor
+            \ei
+            \item \verb|def __init__(self)|
+        \ei
+        \item \verb|__str__|
+        \bi
+            \item \verb|__str__| is a special method that returns a string representation of an object
+            \item gets invoked when printing an object
+        \ei
+        \item when writing a new class, start with \verb|__init__| followed by \verb|__str__| methods
+    \ei
+    \item Subclass:
+    \bi
+        \item if \verb|A| is a base class, then can create a \emph{subclass} \verb|B| that inherits class \verb|A|
+        \item  \verb|class B(A):|
+    \ei
+    \item Overloading operators:
+    \bi
+        \item the method \verb|__add__|, for example, allows overloading the '+' operator in a way described in this method,
+        \item in other words, the behavior of an operator can be changed so that it works with user-defined types.
+    \ei
+\end{itemize}
+
+\newpage
+\section{Modules\label{modules_section}}
+\begin{itemize}
+    \item Module
+    \bi
+        \item a module is a Python file that contains a collection of functions.
+    \ei
+    \item Importing modules:
+    \bi
+        \item one approach to import \& use a function \verb|function_name()| from a module \verb|module_name| is
+        \begin{verbatim}
+import module_name
+module_name.function_name()
+        \end{verbatim}
+        \item equivalently
+        \begin{verbatim}
+import module_name as mn
+mn.function_name()
+        \end{verbatim}
+        \item can also directly import certain variables/functions
+        \begin{verbatim}
+from module_name import filename
+        \end{verbatim}
+    \ei
+    \item \verb|__future__|
+    \bi
+        \item To write a Python 2/3 compatible code-base, add these lines to the top of each module,
+        \item \verb|from __future__ import absolute_import|
+        \bi
+            \item with absolute import, command \verb|import foo| means \verb|foo| is a module or package reachable from sys.path
+        \ei
+        \item \verb|from __future__ import division|
+        \bi
+            \item \verb|x/y| returns "true division", while \verb|x//y| returns the  "floor division"
+        \ei
+        \item \verb|from __future__ print_function|
+        \bi
+            \item \verb|print("H", "w")| will print as \verb|H w| rather than \verb|('H', 'w')|
+        \ei
+    \ei
+    \item \verb|six|
+    \bi
+        \item provides simple utilities for wrapping over differences between Python 2/3,
+        \item $6=2*3$,
+        \item Python 3 reorganized the standard library and moved several functions to different modules,
+        \bi
+            \item \verb|six| provides a consistent interface to them through the fake \verb|six.moves| module.
+        \ei
+        \item this influences the following:
+        \bi
+            \item \verb|urllib|, a high-level interface for fetching data across the World Wide Web,
+            \item \verb|xrange|
+        \ei
+    \ei
+    \item \verb|urllib|
+    \bi
+        \item  \verb|urllib| is a high-level interface for fetching data across the World Wide Web
+        \item for example to retrieve a file from WWW \newline
+        \verb|from urllib.request import urlretrieve| \newline
+        \verb|urlretrieve(url, file)|
+    \ei
+    \item \verb|gzip|
+    \bi
+        \item this module provides a simple interface to compress and decompress files just like the GNU programs \verb|gzip| and \verb|gunzip| would.
+    \ei
+    \item \verb|zipfile|
+    \bi
+        \item handles zip files
+    \ei
+    \item \verb|tempfile|
+    \bi
+        \item this module creates temporary files and directories,
+        \item high level interfaces provide automatic cleanup and include
+        \bi
+            \item \verb|TemporaryFile|
+            \item \verb|NamedTemporaryFile|
+            \item \verb|TemporaryDirectory|
+            \item \verb|SpooledTemporaryFile|
+        \ei
+    \ei
+    \item \verb|ctypes|
+    \bi
+        \item \verb|ctypes| module is used if working with C dll’s,
+        \item \verb|c_int| is int/long in python,
+        \item class ctypes.WinDLL(name, mode= DEFAULT\_MODE, handle=None, use\_errno=False, use\_last\_error=False)
+        \bi
+            \item Windows only: Instances of this class represent loaded shared libraries,
+            \item functions in these libraries use the stdcall calling convention, and are assumed to return int by default.
+        \ei
+    \ei
+    \item \verb|sys|
+    \bi
+        \item \verb|sys| module provides information about constants, functions and methods of the Python interpreter,
+        \item \verb|sys.path| shows current paths stored.
+        \item \verb|sys.path.append(YOUR_PATH)|.
+    \ei
+    \item \verb|os|
+    \bi
+        \item \verb|os| module provides functions for working with files and directories,
+        \item \verb|getcwd()|, gets current directory,
+        \item \verb|path.abspath()|, gets the absolute path to a file,
+        \item \verb|path.exists()|, checks whether a file exists,
+        \item \verb|path.isdir()|, checks whether it is a directory,
+        \item \verb|path.isfile()|, checks whether it is a file
+        \item \verb|path.listdir()|, returns a list of files in the given directory
+        \item \verb|path.dirname(path)|, returns the directory name of pathname \verb|path|
+        \item \verb|path.join|, takes a directory and a file name and joins them into a complete path.
+    \ei
+    \item \verb|argparse|
+    \bi
+        \item the \verb|argparse|, or \verb|ArgumentParser|, module makes it easy to write user-friendly command-line interfaces,
+        \item to create an \verb|ArgumentParser| object,\newline \verb|parser=argparse.ArgumentParser()|
+        \item \verb|add_argument()| method takes strings on command line and turn them into objects
+        \item \verb|parse_args()| stores and uses the information.
+    \ei
+    \item \verb|copy|
+    \bi
+        \item the copy module includes two functions, \verb|copy()| \& \verb|deepcopy()|, for duplicating existing objects,
+        \item \verb|copy.copy(y)| is a \emph{shallow copy} since it only copies everything except the embedded objects,
+        \item \verb|copy.deepcopy(y)| is \emph{deep copy} which copies everything.
+    \ei
+    \item \verb|collections|
+    \bi
+        \item implements specialized container data-types providing alternatives to Python’s general purpose built-in containers,
+        \item one of the data-types is \verb|namedtuple(type_name, field_names)| factory function for creating tuple subclasses with named fields,
+        \bi
+            \item returns returns a new tuple subclass named \verb|type_name|.
+        \ei
+    \ei
+    \item \verb|moviepy|
+    \bi
+        \item \verb|moviepy.editor.VideoFileClip()|
+        \bi
+            \item \verb|clip1 = VideoFileClip(mp4_fn)|
+            \item reads video-file \& stores all frames in \verb|clip1|
+        \ei
+        \item \verb|object.fl_image()|
+        \bi
+            \item \verb|x = clip1.fl_image(process_image)|
+            \item modifies every frames of \verb|clip1|, transformed by function \verb|process_image()|
+        \ei
+        \item \verb|object.write_videofile()|
+        \bi
+            \item \verb|%time clip1.write_videofile(fn)|
+            \item saves \verb|clip1| in file \verb|fn|
+        \ei
+        \item \verb|object.save_frame()|
+        \bi
+            \item \verb|clip1.save_frame("x.png", t=2)|
+            \item saves a single frame from time $t$
+        \ei
+        \item \verb|object.subclip()|
+        \bi
+            \item \verb|clip2 = clip1.subclip(t_s,t_e)|
+            \item returns video between time \verb|t_s| and \verb|t_e|
+        \ei
+        \item \verb|object.iter_frames()|
+        \bi
+            \item \verb|for frame in clip1.iter_frames():|
+            \item iteration through all frames
+        \ei
+        \item \verb|concatenate_videoclips()|
+        \bi
+            \item \verb|c=concatenate_videoclips([a,b])|
+            \item concatenate video clips \verb|a| and \verb|b| to \verb|c|
+        \ei
+        \item \verb|TextClip()|
+        \bi
+            \item \verb|t = TextClip('text',options)|
+            \item adds text to a video
+            \item can control vareous attributes, such as duration, \newline
+              \verb|t.set_duration(3)|
+        \ei
+    \ei
+    \item \verb|math|
+    \bi
+        \item includes \verb|log10|, \verb|log|, \verb|sin|, \verb|cos|, \verb|pi|, \verb|exp|
+    \ei
+    \item \verb|scipi|
+    \bi
+        \item \emph{SciPy} builds on NumPy, see sub-section \ref{numpy_sec}, \& providing functions that operate on NumPy arrays
+        \item image processing functions:
+        \bi
+            \item \verb|img  = scipy.misc.imread('assets/cat.jpg')|
+            \item \verb|img_t=scipy.misc.imresize(img, (300, 300))|
+            \item \verb|scipy.misc.imsave('cat_t.jpg', img_t)|
+            \item \verb|image, labels = scipy.ndimage.measurements.label(heatmap)|
+            \bi
+                \item \verb|image| is an array the size of the \verb|heatmap| input image where pixels are set to $0$ for background, $1$ for object number $1$, $2$ for car number $2$ etc
+                \item \verb|labels|  is the number of labels found
+            \ei
+        \ei
+        \item Matlab mat read/write functions:
+        \bi
+            \item \verb|scipy.io.loadmat|
+            \item \verb|scipy.io.savemat|
+        \ei
+    \ei
+    \item \verb|PIL|
+    \bi
+        \item \verb|PIL| stands for \emph{Python Imaging Library}
+        \item \verb|PIL| has image processing capabilities
+\begin{verbatim}
+from PIL import Image
+im = Image.open("bride.jpg")
+im.rotate(45).show()
+\end{verbatim}
+    \ei
+    \item \verb|pickle|
+    \bi
+        \item the \verb|pickle| module implements protocols for serializing and de-serializing a Python object structure \newline
+        \verb|pickle.dump(obj,file)| \newline
+        \verb|pickle.load(file)|
+    \ei
+    \item \verb|csv|
+    \bi
+        \item \verb|rdr = csv.reader(csv_fp)|
+        \item \verb|header = next(rdr)| skips header
+        \item \verb|for _line in rdr| \newline \verb|   ...|
+    \ei
+    \item \verb|glob|
+    \bi
+        \item \verb|glob.glob("name*.jpg")|
+        \bi
+            \item reads multiple filenames from directory
+            \item returns a list of filenames
+        \ei
+    \ei
+    \item \verb|random|
+    \bi
+        \item \verb|x = random.random()|
+        \item \verb|index = random.randint(p,q)|
+    \ei
+    \item \verb|skimage|
+    \bi
+        \item \emph{scikit-image} is a collection of algorithms for image processing
+        \item \verb|skimage.feature.hog(im_grey,...)|
+        \bi
+            \item finds \emph{histogram of oriented gradients} (HOG) of a 1D image
+            \item call function as \verb|features = hog(...)|
+            \item arguments:
+            \bi
+                \item \verb|orientations=9|, or bins
+                \item \verb|pixels_per_cell=(8, 8)|
+                \item \verb|cells_per_block=(3, 3)| specifies the local area over which the histogram will be normalized. The HOG features for all cells in each block are computed at each block position. Furthermore, the block steps across and down through the image cell by cell
+                \item if there are $n$ cells horizontally/vertically, then
+                \beq
+                    (n-\text{cells-per-block}+1)^2
+                \eeq
+                blocks are considered
+                \item number of features extracted are
+                \beq\label{hog_out}
+                     (n-\text{cells-per-block}+1) \times (n-\text{cells-per-block}+1) \times \text{cells-per-block} \times \text{cells-per-block} \times \text{orientations}
+                \eeq
+                \item \verb|feature_vec|: if \verb|False| returns histograms (\verb|features|), as $5$ dimensional array as shown in (\ref{hog_out})(for reuse), while \verb|True| returns as a single dimensional feature vector
+                \item \verb|visualize|: if \verb|True| returns a second object which is a image visualization of hog
+                \item \verb|block_norm='L1'| specifies the local area over which the histogram counts in a given cell will be normalized
+            \ei
+        \ei
+    \ei
+    \item Other modules:
+    \bi
+        \item \verb|time|
+        \bi
+            \item can use this module by measure time before and after a program is executed
+            \item \verb|time.time()|
+        \ei
+        \item \verb|SymPy| is a package for symbolic computation
+        \item \verb|hashlib| to hash strings
+        \item \verb|tqdm| make loops show a progress meter  \newline
+        \verb|for i in tqdm(range(10000)):|
+    \ei
+\end{itemize}
+
+\newpage
+\subsection{NumPy\label{numpy_sec}}
+\begin{itemize}
+   \item NumPy:
+    \bi
+        \item \emph{NumPy} stands for \emph{numerical Python}, and is pronounced "Numb Pie"
+        \item NumPy is the core library for scientific computing
+        \item NumPy adds support for large, multi-dimensional arrays and matrices along with a large library of high-level mathematical functions to operate on these arrays
+        \item NumPy provides familiar mathematical functions called “universal functions” (ufunc)
+        \item roughly speaking
+        \beq
+            \{\text{Python}, \text{NumPy}, \text{Matplotlib} \} \approx \text{Matlab},
+        \eeq
+        \item see, \url{http://www.numpy.org/}
+        \item \emph{SciPy} (\url{https://www.scipy.org/}), or \emph{scientific algorithm},  sits on top of NumPy
+        \item to import library, type \newline
+        \verb|import numpy as np|
+    \ei
+    \item \verb|ndarray|
+    \bi
+        \item in NumPy the basic type is a multidimensional array
+        \item this class of  multidimensional arrays is called \verb|ndarray|
+        \item the dimensions are the \emph{axes}
+        \item the number of axes is the \emph{rank}
+    \ei
+    \item \verb|matrix|
+    \bi
+        \item \verb|matrix| is a subclass of the array class, used for doing linear algebra,
+        \item \verb|A=np.matrix([1,2,3])|
+        \item symbol \verb|*| is used for matrix multiplication,
+        \item \verb|multiply()| function is used for element-wise multiplication.
+    \ei
+    \item \verb|dtype|
+    \bi
+        \item the \verb|dtype| of an ndarray \verb|x| is obtained by typing \newline
+        \verb|x.dtype|
+        \item every element of numpy array is of the same type
+        \item if not explicitly stated, Numpy tries to guess a data-type when you create an array
+        \item in addition to python data types, NumPy provides additional types such as
+        \bi
+            \item \verb|np.bool_| Boolean (True/False) stored as a byte
+            \item \verb|np.int_| default integer type
+            \item \verb|np.int8|, \verb|int16|,\verb| int32|,\verb| int64|
+            \item \verb|np.uint8|,  \verb|uint16|,\verb| uint32|, \verb|uint64|
+            \item \verb|np.float16|, \verb| float32|, \verb|float64|, \verb| float128|
+            \item \verb|np.complex64|
+        \ei
+        \item can change dtype of \verb|x| to \verb|float32| by typing \newline \verb|y=x.astype(np.float32)|
+    \ei
+    \item \verb|NaN|
+    \bi
+        \item \verb|NaN| (not-a-number) is a placeholder in NumPy for missing data,
+        \item \verb|NaN| allows for vectorized operations,
+        \item \verb|NaN| is a float value, while \verb|None|, by definition, forces object type, which basically disables all efficiency in NumPy.
+    \ei
+    \item \verb|ndarray| properties:
+    \bi
+        \item \verb|ndarray.ndim| \newline returns the number of axes of the array
+        \item \verb|ndarray.shape| \newline returns the dimensions of the array, returned as a tuple
+        \item \verb|ndarray.size| \newline returns the total number of elements of the array
+        \item \verb|ndarray.itemsize| \newline returns the size in bytes of each element of the array
+     \ei
+    \item Creating an \verb|ndarray|:
+    \bi
+        \item \verb|np.empty([2,2])|
+        \item \verb|np.array(mylist)| list to np
+        \item \verb|np.float32([[1,2],[3,4],[5,6]])|
+        \item \verb|np.array([[1,2],[3,4]]|
+        \item \verb|np.array([[1,2],[3,4]],dtype=int32)|
+        \item \verb|np.zeros((3,4))|
+        \item \verb|np.zeros_like(a)|
+        \item \verb|np.ones((3,4))|
+        \item \verb|np.full((3,4), 7)| constant matrix
+        \item \verb|np.eye(3)|
+        \item \verb|np.diag([1,2,3])|
+        \item \verb|np.arange(_start,_end,_int)|
+        \item \verb|np.linspace(_start,_end,_num)|
+         \item \verb|np.meshgrid()|
+        \bi
+            \item creates a set of coordinates inside a rectangle defined by vectors \verb|x| and \verb|y|
+            \item an implementation of MATLAB's meshgrid function
+            \item \verb|XX, YY = np.meshgrid(x, y)|
+            \item \verb|XX| and \verb|YY| are matrices of coordinates
+        \ei
+        \item \verb|np.mgrid[]|
+        \bi
+            \item similar to \verb|meshgrid()| but reversed output
+            \item \verb|YY, XX = mgrid[-2:2, -1:1]|
+        \ei
+        \item \verb|np.random.rand(shape)|
+        \item \verb|np.random.uniform(low=0,high=1,size=None)|
+        \item \verb|np.random.randn(shape)|
+        \item \verb|np.random.normal(mean,std,size)|
+        \item \verb|np.fromfunction(f,shape)|
+        \item growing an array is expensive, try sizing it right at creation time
+    \ei
+    \item Copies:
+    \bi
+        \item when operating on arrays, their content is sometimes copied into a new array and sometimes not:
+        \bi
+            \item with \verb|b=a| no new object it created
+            \item Python passes mutable objects as references, so function calls also make no copy
+            \item arrays have pass-by-reference semantics
+        \ei
+        \item \verb|b = copy(a)| makes a separate copy
+    \ei
+    \item Slicing:
+    \bi
+        \item \verb|row_r1 = a[1,:]| is a $1$ dimensional view of the second row of \verb|a|
+        \item \verb|row_r2 = a[1:2,:]| is a $2$ dimensional view of the second row of \verb|a|
+        \item \verb|row_r1.shape| prints "(4,)"
+        \item \verb|row_r2.shape| print "(1, 4)"
+        \item \verb|x[[a,b,c],[d,e,f]]| is the vector  \newline \verb|x[a,d]|, \verb|x[b,e]|, \verb|x[c,f]|
+    \ei
+     \item \verb|ndarray| modifications:
+     \bi
+        \item \verb|expand_dims(a, 0)| adds dim on an axis
+        \item \verb|reshape(a,b)| modifies shape
+        \item \verb|reshape(a,-1)| forces a
+        \item \verb|resize(a,b)| modifies array
+        \item \verb|flatten()| flattens copy
+        \item \verb|ravel()| flattens original
+        \item \verb|transpose()| or \verb|np.T|
+        \item \verb|fliplr(a) #left-right|
+        \item \verb|flipud(a) #up-down|
+        \item \verb|vstack((a,b))|
+        \bi
+            \item  stack along 1st axis
+            \item i.e. row wise or vertically
+        \ei
+        \item \verb|hstack((a,b))|
+        \bi
+            \item stack along 2nd axis
+            \item i.e. horizontally, or column wise
+        \ei
+        \item \verb|dstack((a,b,...,c))|
+        \bi
+            \item stack along the 3rd axis
+            \item stacks 2D arrays into a single 3D array
+        \ei
+        \item \verb|stack((a,b,c),axis=a)|
+        \bi
+            \item join a sequence of arrays along a new axis \verb|a|
+        \ei
+        \item \verb|np.concatenate((a,.. c), axis=0)|
+        \bi
+            \item join a sequence of arrays along an existing axis
+            \item slow compared to \verb|append()|
+        \ei
+     \ei
+     \item Some universal functions:
+     \bi
+        \item \url{https://docs.scipy.org/doc/numpy/reference/ufuncs.html}
+        \item \verb|np.absolute(a)|
+        \item \verb|np.exp(a)|
+        \item \verb|np.log(a)|
+        \item \verb|np.sqrt(a)|
+        \item \verb|np.square(a)|
+        \item \verb|np.sign(a)|
+        \item \verb|np.sin(a)|
+        \item \verb|np.cos(a)|
+        \item \verb|np.tan(a)|
+        \item \verb|np.arctan(a)|
+        \item \verb|np.arctan2(a,b)|
+     \ei
+     \item  \verb|ndarray| operations:
+     \bi
+        \item operations on \verb|ndarray| are element-wise operations
+        \item many of the operators are overloaded:
+        \bi
+            \item addition  as \verb|+|
+            \item subtraction as \verb|-|
+            \item element-wise multiplication as \verb|*|
+            \item element-wise division as  \verb|/|
+            \item exponentiation as \verb|**|
+        \ei
+        \item can use operations \verb|*=|, \verb|+=| \& \verb|-=|
+        \item use \verb|dot()| for matrix multiplication
+    \ei
+     \item \verb|ndarray| computations:
+     \bi
+        \item \verb|np.dot(b)| does matrix multiplication
+        \item \verb|np.dot(a,b)| same as above
+        \item \verb|np.outer(a,b)| does vector outer product
+        \item \verb|np.convolve(a,b)|
+        \item \verb|np.sum()|
+        \item \verb|np.prod()|
+        \item \verb|np.cumsum()|
+        \item \verb|np.min()|
+        \item \verb|np.max((a,b),axis=0)|
+        \item \verb|np.argmin()|
+        \item \verb|np.argsort()|
+        \item \verb|np.unique(a)| unique elements
+        \item \verb|np.nonzero(a)| nonzero element indices
+        \item \verb|np.polyfit()|
+        \bi
+            \item generates the coefficient of a polynomial, of order \verb|n|, that fits data points
+            \item \verb|coef=np.polyfit((x1,y1),(x2,y2),n)|
+            \item \verb|coef=np.polyfit(x,y,3)|
+        \ei
+         \item \verb|np.polyval()|
+        \bi
+            \item evaluates a polynomial \newline
+            \verb|y = np.polyval(coef,x)|
+        \ei
+        \item \verb|np.histogram()|
+        \bi
+            \item \verb|h, e = np.histogram(im,bins=10)|
+            \item \verb|h| is the histogram
+            \item \verb|e| is the edges
+            \item argument \verb|range={a,b)| is optional
+        \ei
+    \ei
+    \item Miscellaneous functions:
+    \bi
+        \item \verb|load()|
+        \bi
+            \item \verb|net_data = np.load("alexnet.npy")|
+        \ei
+        \item \verb|set_printoptions()|
+        \bi
+            \item \verb|np.set_printoptions(precision=3)|
+            \item when printing an array, it sets decimal precision
+        \ei
+    \ei
+\end{itemize}
+
+\newpage
+\subsection{Matplotlib}
+\begin{itemize}
+    \item \verb|matplotlib|
+    \bi
+        \item \emph{Matplotlib}, is a 2D plotting library that emulates the Matlab interface
+        \item integrates seamlessly with \verb|Numpy|
+        \item \emph{Seaborn} sits on top of Matplotlib
+        \bi
+            \item it augments Matplotlib capabilities
+        \ei
+        \item \url{http://matplotlib.org/}
+        \item to import library, type \newline
+        \verb|import matplotlib.pyplot as plt|
+        \item an IPython-specific directive that displays matplotlib plots in a notebook cell rather than in another window is  \newline \verb|%matplotlib inline|
+    \ei
+    \item Common methods:
+    \bi
+        \item \verb|plt.figure(figsize=(w,h))|
+        \bi
+            \item the width (\verb|w|) \& the height (\verb|h|) are in inches
+        \ei
+        \item \verb|plt.subplot(2, 1, 1)|
+        \item \verb|f, (ax1, ax2) = plt.subplots(1, 2, figsize=(20,10))| \newline is an alternative approach
+        \item \verb|ax1.set_title('Stacked thresholds')|
+        \item \verb|ax1.imshow(color_binary)|
+        \item \verb|plt.plot(x, z)|
+        \item \verb|plt.hist(_x, _bins, rwidth=0.8)|
+        \item \verb|plt.axis("off")| \newline does not show x-y axes
+        \item \verb|plt.xlabel('x axis label')|
+        \item \verb|plt.ylabel('y axis label')|
+        \item \verb|plt.title('z=%d' % var_name)|
+        \item \verb|plt.grid()|
+        \item \verb|plt.legend(['z', 'w'])|
+        \item \verb|plt.show()|
+    \ei
+    \item Plotting images:
+    \bi
+        \item similar to SciPy, \verb|matplotlib| can handle images
+        \item \verb|import matplotlib.image as mpimg|
+        \item \verb|image = mpimg.imread('test.jpg')|
+        \bi
+            \item color space is in RGB
+            \item \verb|.jpg| images are read on a scale of $0$ to $255$
+            \item \verb|.png| images are read on a scale of $0.0$ to $1.0$
+        \ei
+        \item \verb|plt.imshow(np.uint8(_img))|
+        \item \verb|plt.imshow(_img, cmap='gray')|
+        \newline where \verb|cmap| stands for \emph{color map}
+    \ei
+\end{itemize}
+
+\newpage
+\subsection{sklearn}
+\begin{itemize}
+    \item \verb|sklearn|
+    \bi
+        \item \verb|sklearn| or \emph{scikit-learn} is a machine learning, data mining and data analysis module
+        \item built on top of NumPy, SciPy, and matplotlib
+    \ei
+    \item Basic machine learning tools:
+    \bi
+        \item \verb|sklearn.utils.shuffle()|
+        \bi
+            \item \verb|X, Y = shuffle(X, Y)|
+            \item shuffles the data
+        \ei
+        \item \verb|sklearn.preprocessing.LabelBinarizer()|
+        \bi
+            \item \verb|label_binarizer = LabelBinarizer()|
+            \item \verb|y1hot=label_binarizer.fit_transform(y)|
+        \ei
+        \item \verb|sklearn.model_selection.train_test_split()|
+        \bi
+            \item \verb|Xt,Xv,yt,y_v=train_test_split(features,labels,test_size=0.33,random_state=0)|
+            \item  performs both the shuffle and split
+        \ei
+        \item \verb|sklearn.preprocessing.StandardScaler(with_mean=True, with_std=True)|
+        \bi
+            \item class that normalizes data by removing the mean and scaling to unit variance
+            \item \verb|with_mean=True| removes mean value
+            \item \verb|with_std=True| normalizes std
+            \item method \verb|fit(X)|
+            \bi
+                \item \verb|X| is the training data set
+                \item \verb|fit()| computes the mean and std to be used for later scaling
+            \ei
+            \item method \verb|transform(X)|
+            \bi
+                \item after determining mean and variance using \verb|fit()|, can do normalization (standardization) using \verb|transform()|
+            \ei
+
+        \ei
+        \item \verb|sklearn.model_selection.GridSearchCV|
+        \bi
+            \item class that exhaustively searches parameter space
+        \ei
+        \item \verb|sklearn.model_selection.RandomizedSearchCV|
+        \bi
+            \item class that randomly searches the parameter space
+        \ei
+    \ei
+    \item Some supervised classifiers:
+    \bi
+        \item \verb|clf = GaussianNB()|
+        \item \verb|clf = SVC()|, or \verb|clf = LinearSVC()|
+        \item \verb|clf = DecisionTreeClassifier()|
+    \ei
+    \item Common supervised classifier methods:
+    \bi
+        \item \verb|clf.fit(X,y)|
+        \bi
+            \item \verb|fit()| trains the classifier
+            \item \verb|X| = feature vectors
+            \item \verb|y| = labels
+        \ei
+        \item \verb|y_hat = clf.predict([[-0.8, -1]])|
+        \bi
+            \item given some feature vector $x$, \verb|predict(x)| predicts the label associated with $x$
+        \ei
+        \item \verb|clf.score(X_test,y_true)|
+        \bi
+            \item \verb|score()| gives the accuracy rate of the classifier on the test data \verb|X_test|
+        \ei
+    \ei
+    \item \verb|sklearn.naive_bayes.GaussianNB()|
+    \bi
+        \item NB stands for naive Bayes
+        \item feature components are assumed independent
+        \item noise is assumed Gaussian
+    \ei
+    \item \verb|sklearn.svm.SVC()|
+    \bi
+        \item \verb|svm| stands for \emph{support vector machines}
+        \item \verb|SVC| stands for \emph{support vector classification}
+        \item arguments to \verb|SVC()|:
+        \bi
+            \item \verb|kernel| choices include
+            \bi
+                \item \verb|kernel = 'rbf'| (default)
+                \item \verb|kernel = 'linear'|
+                \item \verb|kernel = 'poly'|
+                \item \verb|kernel = 'sigmoid'|
+            \ei
+            \item \verb|C| scales the soft margin cost function
+            \bi
+                \item \verb|C| scales the total violation
+                \item it trades error penalty for stability
+                \item large \verb|C| may minimize error rate but may also overfit
+            \ei
+            \item \verb|gamma| is the free parameter of the Gaussian radial basis  function (\verb|rbf|)
+            \bi
+                \item term in exponent, inverse of variance
+                \item if small then far away points also influence decision boundary
+            \ei
+        \ei
+    \ei
+    \item \verb|sklearn.tree.DecisionTreeClassifier()|
+    \bi
+        \item some of the arguments:
+        \bi
+            \item \verb|criterion| could be \verb|'gini'| (default), or \verb|'entropy'|
+            \item \verb|min_samples_split=n| stops the process of splitting the tree if available samples are $<n$
+        \ei
+    \ei
+\end{itemize}
+
+
+\newpage
+\subsection{OpenCV\label{opencv_sec}}
+\begin{itemize}
+    \item Generalities:
+    \bi
+        \item \emph{OpenCV} stands for Open-Source Computer Vision
+        \bi
+            \item see opencv.org
+        \ei
+        \item $2$ types of Python interfaces, \verb|cv| \& \verb|cv2|
+    \ei
+    \item \verb|cv2|
+    \bi
+        \item \verb|cv2| is the latest release
+        \item in \verb|cv2|, everything is returned as NumPy objects, like \verb|ndarray|, and native Python objects like lists, tuples, dictionary, etc.
+        \item \verb|import cv2|
+    \ei
+    \item \verb|imread()|
+    \bi
+        \item \verb|im = cv2.imread(fn)|
+        \item the default color space is BGR
+    \ei
+    \item \verb|imwrite()|
+    \bi
+        \item \verb|cv2.imwrite('xyz.png',img)|
+    \ei
+    \item \verb|cvtColor()|
+    \bi
+      \item to convert (i.e. cvt) the color format of an image use function
+      \newline\verb|im_o = cv2.cvtColor(im_i, flag)|
+        \item \verb|flag| determines type of conversion, e.g.
+        \bi
+            \item \verb|flag = cv2.COLOR_RGB2HSV|
+             \item \verb|flag = cv2.COLOR_HSV2RGB|
+            \item \verb|flag = cv2.COLOR_RGB2GRAY|
+            \item \verb|flag = cv2.COLOR_BGR2RGB|
+             \item \verb|flag = cv2.COLOR_BGR2HLS|
+        \ei
+        \item for an 8-bit image, the range of H is from $0-179$
+    \ei
+    \item \verb|resize()|
+    \bi
+        \item resizes an image
+        \item \verb|_img_out=cv2.resize(_img_in,(32,32))|
+        \item can choose specific interpolator by adding optional argument \verb|interpolation|
+        \bi
+            \item e.g., \verb|interpolation=cv2.INTER_AREA|
+        \ei
+    \ei
+     \item \verb|findChessboardCorners()|
+    \bi
+        \item to calibrate a camera, this function determines the corners of a (possibly) distorted chessboard image
+        \item \verb|ret,corn=cv2.findChessboardCorners|
+            \newline \verb|   (_im, (nx, ny), None)|
+        \bi
+            \item \verb|_im|  a distorted chessboard image in grayscale
+            \item \verb|(nx, ny)|  are the number of corners per row and column respectively
+            \item \verb|None| means no flags
+            \item \verb|ret| is a boolean variable to convey whether the corners were found
+            \item \verb|corn| are the coordinates of the corners
+        \ei
+    \ei
+    \item \verb|drawChessboardCorners()|
+    \bi
+        \item superimposes corner coordinates on an image
+        \item \verb|cv2.drawChessboardCorners(| \newline
+                    \verb|   img, (nx, ny), corn, ret)|
+        \item parameters similar to above
+    \ei
+    \item \verb|calibrateCamera()| \newline
+    \verb|ret, mtx, dist, rvecs, tvecs = | \newline
+        \verb|  cv2.calibrateCamera(objpoints,| \newline
+            \verb|  imgpts,gray.shape[::-1],None,None)|
+    \bi
+        \item \verb|objpoints| are the desired point coordinates
+        \item \verb|imgpoints| are obtained, for example, from a chessboard corners
+        \bi
+            \item \verb|objpoints| and \verb|imgpoints| may come from multiple images
+        \ei
+        \item \verb|,gray.shape[::-1]| is the shape of the image
+        \item \verb|dist| are the distortion coefficients
+        \item \verb|mtx| is the camera matrix
+        \item \verb|rvecs| (rotation vector) and \verb|trecs| (translation vector) )are the position of the camera
+    \ei
+    \item \verb|undistort()|
+    \bi
+        \item given the camera matrix \verb|mtx| and the distortion coefficients \verb|dist|, this function transforms distorted images to be undistorted
+        \item \verb|dst = cv2.undistort(img, mtx,| \newline
+        \verb|      dist, None, mtx)|
+        \bi
+            \item \verb|img| is a distorted image
+            \item \verb|dst| is undistorted, destination image
+        \ei
+    \ei
+    \item \verb|getPerspectiveTransform()|
+    \bi
+        \item \verb|M = cv2.getPerspectiveTransform(src,dst)|
+        \item \verb|src| are a set of point to be be transformed to \verb|dst|
+        \item \verb|M| is the transformation
+    \ei
+    \item \verb|warpPerspective()|
+    \bi
+        \item \verb|warped = cv2.warpPerspective(img, M,| \newline \verb|   img_size, flags=cv2.INTER_LINEAR)|
+        \item \verb|M| is the transform matrix
+    \ei
+    \item \verb|warpAffine()|
+    \bi
+        \item \verb|img_o = cv2.warpAffine(img_i,M,dsize)|
+        \item computes an affine transformation $Ax +b$, where \verb|M = [A b]| is $(2 \times 3)$ matrix
+    \ei
+    \item \verb|getRotationMatrix2D()|
+    \bi
+        \item to generates a rotation transformation $R$, type \newline
+        \verb|R = cv2.getRotationMatrix2D(c,a,s)|
+        \item \verb|c| is center of the rotation in image \verb|(x,y)|
+        \item \verb|a| is angle in degrees
+        \item \verb|s| scales the image, \verb|s=1| does not scale
+        \item \verb|R| is $(2 \times 3)$ matrix that can be used for an affine transformation
+    \ei
+    \item \verb|line()|
+    \bi
+        \item \verb|line| adds a line on an image \verb|img|, given two points $(x1,y1)$ \& $(x2,y2)$
+        \item \verb|cv2.line(im,(x1,y1),(x2,y2),clr,thk)|
+        \item \verb|clr| is color triplet, and \verb|thk| is line thickness
+    \ei
+    \item \verb|rectangle()|
+    \bi
+        \item \verb|cv2.rectangle(im,(xl,y1),(x2,y2),| \newline
+        \verb|   clr,thk)|
+        \item \verb|clr| is color triplet, and \verb|thk| is line thickness
+    \ei
+    \item \verb|putText()|
+    \newline
+    \verb|cv2.putText(im,'text',pos,font,1,c,4)| where
+    \bi
+        \item \verb|pos| is starting position $(x,y)$
+        \item \verb|font=cv2.FONT_HERSHEY_SIMPLEX|
+        \item \verb|1| is the text size
+        \item \verb|c| is color $(r, g, b)$
+        \item \verb|4| is thickness
+    \ei
+    \item \verb|addWeighted()|
+    \bi
+        \item weighted sum of two arrays can be computed as \newline
+        \verb|c=cv2.addWeighted(im1,alph,im2,bet,0)|
+    \ei
+    \item \verb|fillPoly()|
+    \bi
+        \item to fill the area bounded by a polygon type\newline
+        \verb|cv2.fillPoly(img,vertices,| \newline
+            \verb|    ignore_mask_color)|
+    \ei
+    \item \verb|inRange()|
+    \bi
+        \item \verb|inRange| checks if array elements of \verb|src|, lie between two thresholds \verb|lowerb| and \verb|upperb| \newline
+        \verb|cv2.inRange(src,lowerb,upperb,dst)|
+        \item \verb|dst(I)|  is set to
+        \bi
+            \item $255$ if \verb|src(I)| is within the specified region, and
+            \item $0$ otherwise
+        \ei
+    \ei
+    \item \verb|bitwise_and()|
+    \bi
+        \item \verb|bitwise_and| is used to mask images \newline
+        \verb|masked_im=cv2.bitwise_and(im,mask)|
+    \ei
+    \item \verb|GaussianBlur()|
+    \bi
+        \item Gaussian smoothing can be achieved by function \newline
+        \verb|i=cv2.GaussianBlur(im,(k_s,k_s),0)|
+        \item for example, set the kernel size \verb|k_s=3|
+    \ei
+    \item \verb|Sobel|
+    \bi
+        \item \verb|sobelx=cv2.Sobel(im,cv2.CV_64F,1,0)|
+        \item \verb|sobely=cv2.Sobel(im,cv2.CV_64F,0,1)|
+        \item the image \verb|im|, should have depth $1$, e.g. grey
+        \item option \verb|ksize=5| sets kernel size
+        \bi
+            \item default is $3$
+        \ei
+    \ei
+    \item \verb|Canny()|
+    \bi
+        \item Canny Edge Detection  \newline
+        \verb|edges=cv2.Canny(gray,low_thr,high_thr)|
+        \item applies a $5\times 5$ Gaussian smoothing internally
+        \item first detects pixels with gradient above the \verb|high_thr|, and reject pixels below the \verb|low_thr|
+        \bi
+            \item pixels with values between \verb|low_thr| and \verb|high_thr| will be included as long as they are connected to strong edges
+        \ei
+        \item \verb|edges| is a binary image over a black background, with white pixels tracing the detected edges
+        \item John Canny recommended a low to high ratio of $1:2$ or $1:3$
+    \ei
+    \item \verb|HoughLinesP()|
+    \bi
+        \item Hough transformation is performed by the function
+        \begin{verbatim}
+lines = cv2.HoughLinesP(edges, rho,
+   theta, thr, np.array([]),
+   min_line_length, max_line_gap)
+        \end{verbatim}
+        \item \verb|edges| is an image of edges, e.g. from \verb|Canny|
+        \item \verb|lines| is an array containing the endpoints $(x_1, y_1, x_2, y_2)$ of all detected line segments
+        \item \verb|rho| \& \verb|theta| are the distance \& angular resolutions
+        \bi
+            \item \verb|rho| in units of pixels and \verb|theta| in units of radians
+        \ei
+        \item \verb|thr| specifies the minimum number of votes (intersections in a given grid cell) a candidate line needs to have to make it into the output
+        \item \verb|np.array([])| is just an empty placeholder
+        \item \verb|min_line_length| is the minimum length of a line (in pixels) that you will accept in the output
+        \item \verb|max_line_gap| is the maximum distance (again, in pixels) between segments that you will allow to be connected into a single line
+    \ei
+    \item \verb|VideoCapture()|
+    \bi
+        \item \verb|x = cv2.VideoCapture('x.mp4')|
+        \item \verb|success,img = vidcap.read()|
+        \item \verb|cv2.imwrite("frame%d.jpg"%count,img)|
+    \ei
+    \item \verb|matchTemplate()|
+    \bi
+        \item \verb|r=cv2.matchTemplate(im,tmp,method)|
+        \item compares a template \verb|tmp| against overlapped image regions of \verb|im|
+        \item it returns \verb|r|, a single channel image whose entries are the correlation matches for each point
+        \item multiple methods are possible such as \verb|cv2.TM_CCORR_NORMED|
+    \ei
+    \item \verb|minMaxLoc()|
+    \bi
+        \item \verb|minV,maxV,minL,maxL=cv2.minMaxLoc(r)|
+        \item \verb|r| is like the output of \verb|matchTemplate()|
+        \item returns minimum/maximum values and locations
+        \item a location is a pair \verb|(x,y)|
+        \item for detection use \verb|minV| or \verb|maxV| depending on \verb|method| used in \verb|matchTemplate()|
+    \ei
+\end{itemize}
+
+
+\end{document}
